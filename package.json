@@ -1,0 +1,20 @@
+{
+  "name": "givetime-fullstack",
+  "version": "1.0.0",
+  "description": "GiveTime Project 4 — full-stack: responsive frontend wired to a MySQL-backed REST API via fetch/async-await",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "seed": "node src/seed.js",
+    "test": "node test/smoke-test.js"
+  },
+  "keywords": ["fullstack", "express", "mysql", "fetch", "rest"],
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "mysql2": "^3.11.5"
+  }
+}
