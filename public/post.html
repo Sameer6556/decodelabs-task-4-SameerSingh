@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Post or edit a volunteering opportunity on GiveTime." />
+  <title>Post an opportunity, GiveTime</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="container header__inner">
+      <a href="index.html" class="brand">Give<span>Time</span></a>
+      <div class="header__right">
+        <nav class="nav" id="nav">
+          <a href="index.html">Home</a>
+          <a href="opportunities.html">Opportunities</a>
+          <a href="about.html">About</a>
+          <a href="post.html" class="nav__cta active">Post an opportunity</a>
+        </nav>
+        <button class="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="page-head">
+      <div class="container">
+        <h1 id="pageTitle">Post an opportunity</h1>
+        <p id="pageSub">Add volunteering work and find people in the city to help.</p>
+      </div>
+    </div>
+
+    <section class="section">
+      <div class="container">
+        <form class="form-card" id="form" novalidate>
+          <div class="row2">
+            <div class="field">
+              <label for="title">What is the work?</label>
+              <input type="text" id="title" class="input" placeholder="e.g. Gomti riverfront cleanup" />
+              <div class="error" data-for="title"></div>
+            </div>
+            <div class="field">
+              <label for="organization">Organisation</label>
+              <input type="text" id="organization" class="input" placeholder="e.g. Swachh Gomti Abhiyan" />
+              <div class="error" data-for="organization"></div>
+            </div>
+          </div>
+          <div class="row2">
+            <div class="field">
+              <label for="cause">Cause</label>
+              <select id="cause" class="select">
+                <option value="">Pick one</option>
+                <option>Environment</option>
+                <option>Education</option>
+                <option>Health</option>
+                <option>Community</option>
+                <option>Animal Welfare</option>
+                <option>Women Empowerment</option>
+                <option>Elderly Care</option>
+                <option>Disaster Relief</option>
+                <option>Hunger Relief</option>
+                <option>Arts and Culture</option>
+                <option>Sports and Youth</option>
+                <option>Mental Health</option>
+              </select>
+              <div class="error" data-for="cause"></div>
+            </div>
+            <div class="field">
+              <label for="location">Where</label>
+              <input type="text" id="location" class="input" placeholder="e.g. Gomti Riverfront, Lucknow" />
+              <div class="error" data-for="location"></div>
+            </div>
+          </div>
+          <div class="row2">
+            <div class="field">
+              <label for="date">When</label>
+              <input type="date" id="date" class="input" />
+              <div class="error" data-for="date"></div>
+            </div>
+            <div class="field">
+              <label for="slots">Volunteers needed</label>
+              <input type="number" id="slots" class="input" min="1" max="1000" placeholder="e.g. 20" />
+              <div class="error" data-for="slots"></div>
+            </div>
+          </div>
+          <div class="form-foot">
+            <a href="opportunities.html" class="btn btn-outline" id="cancelLink" hidden>Cancel</a>
+            <button type="submit" class="btn btn-primary" id="submitBtn">
+              <span class="btn__label">Post opportunity</span>
+              <span class="spinner" hidden></span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <span>GiveTime, Lucknow</span>
+      <span class="small">&copy; <span id="year"></span> GiveTime</span>
+    </div>
+  </footer>
+
+  <div class="toasts" id="toasts" aria-live="assertive"></div>
+
+  <script src="js/api.js"></script>
+  <script src="js/nav.js"></script>
+  <script src="js/post.js"></script>
+</body>
+</html>

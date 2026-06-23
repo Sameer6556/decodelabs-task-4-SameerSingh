@@ -1,5 +1,5 @@
 /* ===========================================================
-   GiveTime Full-Stack — Project 4
+   GiveTime Full-Stack, Project 4
    One server that:
      1. serves the responsive frontend (public/), and
      2. exposes the MySQL-backed REST API (/api/opportunities).

@@ -1,5 +1,5 @@
 /* ===========================================================
-   MySQL data layer (Project 4) — same engine as Project 3.
+   MySQL data layer (Project 4), same engine as Project 3.
    Pool, schema, seed, CRUD + atomic sign-up. event_date is
    aliased to `date` in reads to match the frontend's shape.
    =========================================================== */
@@ -19,11 +19,17 @@ export async function ensureSchema() {
     port: dbConfig.port,
     user: dbConfig.user,
     password: dbConfig.password,
+    ssl: dbConfig.ssl,
   });
-  await boot.query(
-    `CREATE DATABASE IF NOT EXISTS \`${dbConfig.database}\`
-       CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci`
-  );
+  try {
+    await boot.query(
+      `CREATE DATABASE IF NOT EXISTS \`${dbConfig.database}\`
+         CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci`
+    );
+  } catch (e) {
+    // Some managed databases are pre-created and disallow CREATE DATABASE.
+    // That is fine: the table is created in the existing database below.
+  }
   await boot.end();
 
   await pool.query(`

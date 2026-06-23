@@ -2,5 +2,5 @@
 import { ensureSchema, reset } from "./db.js";
 await ensureSchema();
 const n = await reset();
-console.log(`Database reset — inserted ${n} sample opportunities.`);
+console.log(`Database reset, inserted ${n} sample opportunities.`);
 process.exit(0);

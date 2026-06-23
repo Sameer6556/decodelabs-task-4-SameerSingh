@@ -1,0 +1,23 @@
+# Optional Render blueprint. Deploy this folder as a repo, then in
+# Render choose "New > Blueprint" and fill in the DB_* values when asked.
+# (You can also just create the web service by hand; see DEPLOY.md.)
+services:
+  - type: web
+    name: givetime
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: DB_SSL
+        value: "true"
+      - key: DB_HOST
+        sync: false
+      - key: DB_PORT
+        sync: false
+      - key: DB_USER
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: DB_NAME
+        sync: false

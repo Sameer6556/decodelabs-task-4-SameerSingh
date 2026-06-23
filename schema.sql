@@ -1,4 +1,4 @@
--- GiveTime — database schema (Project 4). Created automatically on
+-- GiveTime, database schema (Project 4). Created automatically on
 -- startup; included for reference / phpMyAdmin.
 
 CREATE DATABASE IF NOT EXISTS givetime

@@ -1,74 +1,69 @@
-/* ===========================================================
-   API client — the bridge between the page and the server.
-   Wraps fetch() with async/await, checks HTTP status codes,
-   parses JSON, and throws useful errors so the UI can degrade
-   gracefully instead of failing silently.
-   =========================================================== */
+/* ==========================================================
+   API client. Wraps fetch with async/await, checks HTTP status
+   codes, parses JSON, and throws useful errors so each page can
+   show a clear message instead of failing silently.
+   ========================================================== */
 (function () {
   "use strict";
 
-  const BASE = window.API_BASE || ""; // same-origin by default
-  const ROOT = `${BASE}/api/opportunities`;
+  var BASE = window.API_BASE || "";
+  var ROOT = BASE + "/api/opportunities";
 
-  async function request(url, options = {}) {
-    let res;
+  async function request(url, options) {
+    var res;
     try {
-      res = await fetch(url, options);
-    } catch {
-      const e = new Error("Network error — couldn't reach the server.");
-      e.kind = "network";
-      throw e;
+      res = await fetch(url, options || {});
+    } catch (e) {
+      var net = new Error("Network error, could not reach the server.");
+      net.kind = "network";
+      throw net;
     }
-
-    let body = null;
+    var body = null;
     if (res.status !== 204) {
-      try { body = await res.json(); } catch { body = null; }
+      try { body = await res.json(); } catch (e) { body = null; }
     }
-
     if (!res.ok) {
-      const e = new Error((body && (body.error || body.message)) || `Request failed (${res.status}).`);
-      e.status = res.status;
-      e.details = body && body.details;
-      throw e;
+      var err = new Error((body && (body.error || body.message)) || ("Request failed (" + res.status + ")."));
+      err.status = res.status;
+      err.details = body && body.details;
+      throw err;
     }
     return body;
   }
 
   window.GiveAPI = {
-    health() { return request(`${BASE}/api/health`); },
+    health: function () { return request(BASE + "/api/health"); },
 
-    async list({ cause, search } = {}) {
-      const p = new URLSearchParams();
-      if (cause && cause !== "all") p.set("cause", cause);
-      if (search) p.set("search", search);
-      const qs = p.toString();
-      const body = await request(`${ROOT}${qs ? "?" + qs : ""}`);
+    list: async function (opts) {
+      opts = opts || {};
+      var p = new URLSearchParams();
+      if (opts.cause && opts.cause !== "all") p.set("cause", opts.cause);
+      if (opts.search) p.set("search", opts.search);
+      var qs = p.toString();
+      var body = await request(ROOT + (qs ? "?" + qs : ""));
       return body.data;
     },
 
-    async create(o) {
-      const body = await request(ROOT, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(o),
-      });
+    get: async function (id) {
+      var body = await request(ROOT + "/" + id);
       return body.data;
     },
 
-    async update(id, o) {
-      const body = await request(`${ROOT}/${id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(o),
-      });
+    create: async function (o) {
+      var body = await request(ROOT, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(o) });
       return body.data;
     },
 
-    async signUp(id) {
-      const body = await request(`${ROOT}/${id}/signup`, { method: "POST" });
+    update: async function (id, o) {
+      var body = await request(ROOT + "/" + id, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(o) });
       return body.data;
     },
 
-    remove(id) { return request(`${ROOT}/${id}`, { method: "DELETE" }); },
+    signUp: async function (id) {
+      var body = await request(ROOT + "/" + id + "/signup", { method: "POST" });
+      return body.data;
+    },
+
+    remove: function (id) { return request(ROOT + "/" + id, { method: "DELETE" }); }
   };
 })();

@@ -3,158 +3,67 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="GiveTime — find local volunteering opportunities and sign up. Full-stack (MySQL + REST + fetch)." />
-  <title>GiveTime — local volunteering</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <meta name="description" content="GiveTime helps you find local volunteering opportunities in Lucknow and sign up in one click." />
+  <title>GiveTime, local volunteering in Lucknow</title>
   <link rel="stylesheet" href="css/styles.css" />
 </head>
-<body id="top">
-  <header class="nav">
-    <div class="wrap nav__inner">
-      <a class="logo" href="#top">GiveTime<span class="logo__dot">.</span></a>
-      <div class="nav__right">
-        <a class="nav__post" href="#post">Post an opportunity</a>
-        <span class="pill" id="pill" title="API connection"><span class="pill__dot"></span><span id="pillText">connecting…</span></span>
+<body>
+  <header class="header">
+    <div class="container header__inner">
+      <a href="index.html" class="brand">Give<span>Time</span></a>
+      <div class="header__right">
+        <nav class="nav" id="nav">
+          <a href="index.html" class="active">Home</a>
+          <a href="opportunities.html">Opportunities</a>
+          <a href="about.html">About</a>
+          <a href="post.html" class="nav__cta">Post an opportunity</a>
+        </nav>
+        <button class="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav"><span></span><span></span><span></span></button>
       </div>
     </div>
   </header>
 
   <main>
-    <!-- Hero -->
-    <section class="hero wrap">
-      <p class="kicker">Volunteering in Lucknow</p>
-      <h1 class="hero__title">Spare a few hours.<br />Help your city.</h1>
-      <p class="hero__lead">
-        Real volunteering work happening near you — a cleanup this weekend, an
-        evening of teaching, a blood camp that needs hands. Find one and take a spot.
-      </p>
-      <p class="hero__meta" id="heroMeta">Loading…</p>
+    <section class="hero">
+      <div class="container">
+        <h1>Find a few hours to help your city.</h1>
+        <p>
+          GiveTime lists real volunteering work happening around Lucknow, a cleanup
+          this weekend, an evening of teaching, a blood camp that needs hands. Browse
+          what is on, then sign up.
+        </p>
+        <div class="hero__actions">
+          <a href="opportunities.html" class="btn btn-primary">Browse opportunities</a>
+          <a href="post.html" class="btn btn-outline">Post an opportunity</a>
+        </div>
+        <div class="stats">
+          <div class="stat"><div class="stat__num" id="statOpps">0</div><div class="stat__label">Open opportunities</div></div>
+          <div class="stat"><div class="stat__num" id="statSpots">0</div><div class="stat__label">Volunteer spots open</div></div>
+          <div class="stat"><div class="stat__num" id="statCauses">0</div><div class="stat__label">Causes</div></div>
+        </div>
+      </div>
     </section>
 
-    <hr class="rule wrap-rule" />
-
-    <!-- Post / edit -->
-    <section class="section wrap" id="post">
-      <div class="post__intro">
-        <h2 class="section__title" id="formTitle">Post an opportunity</h2>
-        <p class="muted" id="formSub">Saved to the database via <code>POST /api/opportunities</code>.</p>
-      </div>
-
-      <form class="form" id="form" novalidate>
-        <input type="hidden" id="editId" />
-        <div class="grid2">
-          <div class="f">
-            <label for="title">What's the work?</label>
-            <input type="text" id="title" placeholder="e.g. Gomti riverfront cleanup" />
-            <small class="err" data-for="title"></small>
-          </div>
-          <div class="f">
-            <label for="organization">Organisation</label>
-            <input type="text" id="organization" placeholder="e.g. Swachh Gomti Abhiyan" />
-            <small class="err" data-for="organization"></small>
-          </div>
+    <section class="section section--soft">
+      <div class="container">
+        <div class="features">
+          <div class="feature"><h3>Browse what is nearby</h3><p>See volunteering work around the city in one place, with the cause, location, date and how many helpers are still needed.</p></div>
+          <div class="feature"><h3>Sign up in one click</h3><p>Found something that fits your weekend? Take a spot. The count updates in the database so organisers know who is coming.</p></div>
+          <div class="feature"><h3>Post your own</h3><p>Running a drive and need volunteers? Add it in a minute and let people in the city find it.</p></div>
         </div>
-        <div class="grid2">
-          <div class="f">
-            <label for="cause">Cause</label>
-            <select id="cause">
-              <option value="">Pick one</option>
-              <option>Environment</option>
-              <option>Education</option>
-              <option>Health</option>
-              <option>Community</option>
-              <option>Animal Welfare</option>
-            </select>
-            <small class="err" data-for="cause"></small>
-          </div>
-          <div class="f">
-            <label for="location">Where</label>
-            <input type="text" id="location" placeholder="e.g. Gomti Riverfront, Lucknow" />
-            <small class="err" data-for="location"></small>
-          </div>
-        </div>
-        <div class="grid2">
-          <div class="f">
-            <label for="date">When</label>
-            <input type="date" id="date" />
-            <small class="err" data-for="date"></small>
-          </div>
-          <div class="f">
-            <label for="slots">Volunteers needed</label>
-            <input type="number" id="slots" min="1" max="1000" placeholder="e.g. 20" />
-            <small class="err" data-for="slots"></small>
-          </div>
-        </div>
-        <div class="form__foot">
-          <button type="button" class="btn btn--plain" id="cancelEdit" hidden>Cancel</button>
-          <button type="submit" class="btn btn--solid" id="submitBtn">
-            <span class="btn__label">Add opportunity</span>
-            <span class="spinner" hidden></span>
-          </button>
-        </div>
-      </form>
-    </section>
-
-    <hr class="rule wrap-rule" />
-
-    <!-- Opportunities -->
-    <section class="section wrap" id="opportunities">
-      <div class="section__head">
-        <h2 class="section__title">Open opportunities</h2>
-        <label class="search">
-          <input type="search" id="search" placeholder="Search by title, org or place" aria-label="Search" />
-        </label>
       </div>
-
-      <div class="filters" id="filters" role="group" aria-label="Filter by cause">
-        <button class="chip is-active" data-cause="all">All</button>
-        <button class="chip" data-cause="Environment">Environment</button>
-        <button class="chip" data-cause="Education">Education</button>
-        <button class="chip" data-cause="Health">Health</button>
-        <button class="chip" data-cause="Community">Community</button>
-        <button class="chip" data-cause="Animal Welfare">Animal Welfare</button>
-      </div>
-
-      <!-- loading -->
-      <ul class="list" id="skeleton" hidden>
-        <li class="skel"></li><li class="skel"></li><li class="skel"></li>
-      </ul>
-
-      <!-- error -->
-      <div class="banner" id="errorBanner" hidden>
-        <span id="errorText">Couldn't reach the server.</span>
-        <button class="btn btn--plain" id="retry">Retry</button>
-      </div>
-
-      <ul class="list" id="list" aria-live="polite"></ul>
-
-      <p class="empty" id="empty" hidden>Nothing matches that yet.</p>
     </section>
   </main>
 
-  <footer class="foot">
-    <div class="wrap foot__inner">
-      <span>GiveTime</span>
-      <span class="muted small">Lucknow, India · <span id="year"></span></span>
+  <footer class="footer">
+    <div class="container footer__inner">
+      <span>GiveTime, Lucknow</span>
+      <span class="small">&copy; <span id="year"></span> GiveTime</span>
     </div>
   </footer>
 
-  <div class="toasts" id="toasts" aria-live="assertive"></div>
-
-  <div class="overlay" id="overlay" hidden>
-    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
-      <h3 id="confirmTitle">Delete this opportunity?</h3>
-      <p class="muted" id="confirmText">This can't be undone.</p>
-      <div class="modal__foot">
-        <button class="btn btn--plain" id="confirmCancel">Cancel</button>
-        <button class="btn btn--danger" id="confirmDelete">Delete</button>
-      </div>
-    </div>
-  </div>
-
   <script src="js/api.js"></script>
-  <script src="js/app.js"></script>
+  <script src="js/nav.js"></script>
+  <script src="js/home.js"></script>
 </body>
 </html>

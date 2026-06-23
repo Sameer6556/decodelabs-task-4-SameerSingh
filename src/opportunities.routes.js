@@ -1,4 +1,4 @@
-/* Opportunity CRUD routes (Project 4) — MySQL-backed, consumed
+/* Opportunity CRUD routes (Project 4), MySQL-backed, consumed
    by the browser frontend via fetch. */
 import { Router } from "express";
 import { opportunitiesDb } from "./db.js";

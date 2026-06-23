@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="About GiveTime." />
+  <title>About, GiveTime</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="container header__inner">
+      <a href="index.html" class="brand">Give<span>Time</span></a>
+      <div class="header__right">
+        <nav class="nav" id="nav">
+          <a href="index.html">Home</a>
+          <a href="opportunities.html">Opportunities</a>
+          <a href="about.html" class="active">About</a>
+          <a href="post.html" class="nav__cta">Post an opportunity</a>
+        </nav>
+        <button class="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="page-head">
+      <div class="container is-center"><h1>About GiveTime</h1></div>
+    </div>
+
+    <section class="section">
+      <div class="container prose">
+        <p>
+          Most people would happily give a few hours to a good cause. They just never
+          hear about the ones nearby. Notices get lost in WhatsApp forwards and faded
+          posters, so the people who want to help and the groups who need help rarely
+          find each other.
+        </p>
+        <p>
+          GiveTime puts local volunteering in one plain, readable place: what the work
+          is, who is running it, where, when, and how many helpers are still needed.
+          Find something that fits your week and take a spot, or post your own drive
+          and let the city find it.
+        </p>
+
+        <h2>How it works</h2>
+        <p>
+          Browse the opportunities page, search or filter by cause, and sign up for
+          anything with spots left. Organisers can add new work from the post page,
+          and edit or remove it later.
+        </p>
+
+        <h2>About this build</h2>
+        <p>
+          This is the full version of a four part project. The pages you see are served
+          by a Node and Express server and talk to a MySQL database through a REST API,
+          using fetch. Sign ups and new posts are saved in the database, so they update
+          for everyone and survive a restart.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <span>GiveTime, Lucknow</span>
+      <span class="small">&copy; <span id="year"></span> GiveTime</span>
+    </div>
+  </footer>
+
+  <script src="js/api.js"></script>
+  <script src="js/nav.js"></script>
+</body>
+</html>
